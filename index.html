@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff8ed">
+<title>ВкусON — Ешь и радуйся!</title>
+<style>
+:root{--green:#39764b;--orange:#f29a38;--cream:#fff8ed;--ink:#29352b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,sans-serif}
+header{background:#fff;padding:18px 16px;border-bottom:1px solid #eee4d5}
+.top{max-width:850px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{font-size:25px;font-weight:800;color:var(--green)}
+.brand span{color:var(--orange)}
+.tagline{font-size:12px;color:#777;margin-top:4px}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:12px;padding:11px 14px}
+.lang{background:#f5ead8;color:var(--ink);font-weight:bold}
+main{max-width:850px;margin:auto;padding:20px 16px 40px}
+.hero{background:linear-gradient(135deg,#fff0d7,#f5dfb9);border-radius:22px;padding:24px 20px;margin-bottom:22px}
+.hero h1{font-size:29px;line-height:1.15;margin:0 0 10px}
+.hero p{line-height:1.5;margin:0 0 16px}
+.primary{background:var(--green);color:white;font-weight:bold}
+.secondary{background:#f1e8d9;color:var(--ink)}
+nav{display:flex;gap:8px;overflow-x:auto;padding:2px 0 14px;margin-bottom:12px}
+nav button{white-space:nowrap;background:#fff;border:1px solid #eadfce;color:#4b594b}
+nav button.active{background:var(--green);color:white;border-color:var(--green)}
+h2{font-size:22px;margin:18px 0 12px}
+.search{width:100%;padding:14px;border:1px solid #e5dac9;border-radius:13px;background:white;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.card{background:white;border:1px solid #eee3d4;border-radius:18px;padding:16px;min-width:0}
+.food{font-size:42px;background:#fff4e3;border-radius:13px;padding:12px;text-align:center}
+.card h3{margin:12px 0 8px;font-size:18px}
+.muted{font-size:13px;color:#777;line-height:1.5}
+.card-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.card-actions button{flex:1}
+.pill{display:inline-block;border-radius:20px;background:#edf4e9;color:var(--green);font-size:12px;padding:5px 9px;margin-top:7px}
+.panel{background:white;border:1px solid #eee3d4;border-radius:18px;padding:18px;margin-bottom:14px}
+textarea{width:100%;min-height:95px;border:1px solid #e5dac9;border-radius:12px;padding:12px;resize:vertical}
+.result{margin-top:14px}
+.recipe-detail h3{font-size:22px}
+.recipe-detail li{margin-bottom:8px;line-height:1.5}
+.recipe-detail p{line-height:1.6}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.row input{width:90px;padding:9px;border:1px solid #e5dac9;border-radius:10px}
+footer{text-align:center;padding:24px;color:#888;font-size:12px}
+.empty{text-align:center;background:white;padding:25px;border-radius:16px;color:#777}
+.hidden{display:none!important}
+.smallbtn{background:#fff4e3;color:#604c31}
+@media(max-width:480px){.hero h1{font-size:25px}.grid{grid-template-columns:1fr}.brand{font-size:22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div>
+      <div class="brand">🍲 Вкус<span>ON</span></div>
+      <div class="tagline" id="tagline">Ешь и радуйся!</div>
+    </div>
+    <button class="lang" id="langBtn" onclick="toggleLang()">EN / RU</button>
+  </div>
+</header>
+<main>
+  <section class="hero" id="hero">
+    <h1 id="heroTitle">Готовить — просто и вкусно!</h1>
+    <p id="heroText">Выбирай рецепт, используй продукты из холодильника и радуй близких вкусными блюдами.</p>
+    <button class="primary" onclick="showTab('recipes')" id="heroBtn">Найти рецепт →</button>
+  </section>
+
+  <nav id="nav">
+    <button class="active" data-tab="home" onclick="showTab('home')" id="nav-home">🏠 Главная</button>
+    <button data-tab="recipes" onclick="showTab('recipes')" id="nav-recipes">📖 Рецепты</button>
+    <button data-tab="pantry" onclick="showTab('pantry')" id="nav-pantry">🥕 Из продуктов</button>
+    <button data-tab="favorites" onclick="showTab('favorites')" id="nav-favorites">❤️ Избранное</button>
+    <button data-tab="shopping" onclick="showTab('shopping')" id="nav-shopping">🛒 Покупки</button>
+  </nav>
+
+  <section id="content"></section>
+</main>
+<footer>ВкусON · <span id="footerText">Готовь с удовольствием!</span></footer>
+
+<script>
+const recipes = [
+ {id:1,emoji:"🍝",ru:"Макароны с фаршем",en:"Pasta with minced meat",time:25,cat:"dinner",
+  ing:["макароны — 200 г","фарш — 300 г","лук — 1 шт.","томатная паста — 1 ст. л.","вода — 300 мл","соль и перец"],
+  enIng:["pasta — 200 g","minced meat — 300 g","onion — 1","tomato paste — 1 tbsp","water — 300 ml","salt and pepper"],
+  steps:["Нарежьте лук и обжарьте до мягкости.","Добавьте фарш и готовьте, помешивая, 5–7 минут.","Добавьте томатную пасту, макароны и воду.","Посолите, накройте крышкой и тушите до готовности макарон."],
+  enSteps:["Chop the onion and sauté until soft.","Add minced meat and cook for 5–7 minutes.","Add tomato paste, pasta and water.","Season, cover and simmer until the pasta is tender."]},
+ {id:2,emoji:"🥞",ru:"Пышные оладьи",en:"Fluffy pancakes",time:20,cat:"breakfast",
+  ing:["кефир — 250 мл","яйцо — 1 шт.","мука — 180 г","сахар — 2 ст. л.","сода — ½ ч. л.","масло для жарки"],
+  enIng:["kefir — 250 ml","egg — 1","flour — 180 g","sugar — 2 tbsp","baking soda — ½ tsp","oil for frying"],
+  steps:["Смешайте кефир, яйцо и сахар.","Добавьте муку и соду, перемешайте до однородности.","Выкладывайте тесто ложкой на разогретую сковороду.","Жарьте с двух сторон до золотистого цвета."],
+  enSteps:["Mix kefir, egg and sugar.","Add flour and baking soda; stir until smooth.","Spoon the batter into a heated pan.","Fry on both sides until golden."]},
+ {id:3,emoji:"🥗",ru:"Овощной салат",en:"Fresh vegetable salad",time:10,cat:"salad",
+  ing:["помидоры — 2 шт.","огурцы — 2 шт.","зелень — по вкусу","растительное масло — 1 ст. л.","соль — по вкусу"],
+  enIng:["tomatoes — 2","cucumbers — 2","fresh herbs — to taste","vegetable oil — 1 tbsp","salt — to taste"],
+  steps:["Вымойте овощи и зелень.","Нарежьте помидоры и огурцы.","Добавьте зелень, соль и масло.","Перемешайте и подавайте сразу."],
+  enSteps:["Wash the vegetables and herbs.","Chop tomatoes and cucumbers.","Add herbs, salt and oil.","Toss and serve immediately."]},
+ {id:4,emoji:"🍗",ru:"Курица с картофелем",en:"Chicken with potatoes",time:45,cat:"dinner",
+  ing:["куриные бёдра — 4 шт.","картофель — 500 г","чеснок — 2 зубчика","масло — 2 ст. л.","паприка, соль, перец"],
+  enIng:["chicken thighs — 4","potatoes — 500 g","garlic — 2 cloves","oil — 2 tbsp","paprika, salt, pepper"],
+  steps:["Разогрейте духовку до 200 °C.","Нарежьте картофель и смешайте с маслом и специями.","Выложите курицу и картофель в форму.","Запекайте около 40–45 минут до полной готовности курицы."],
+  enSteps:["Preheat the oven to 200°C / 400°F.","Cut potatoes and toss with oil and seasoning.","Place chicken and potatoes in a baking dish.","Bake for 40–45 minutes, until the chicken is fully cooked."]},
+ {id:5,emoji:"🍲",ru:"Суп с овощами",en:"Vegetable soup",time:35,cat:"lunch",
+  ing:["картофель — 3 шт.","морковь — 1 шт.","лук — 1 шт.","вода или бульон — 1,5 л","соль и зелень"],
+  enIng:["potatoes — 3","carrot — 1","onion — 1","water or stock — 1.5 L","salt and herbs"],
+  steps:["Нарежьте картофель и овощи.","Доведите воду или бульон до кипения.","Добавьте картофель, морковь и лук.","Варите до мягкости овощей, добавьте соль и зелень."],
+  enSteps:["Chop the potatoes and vegetables.","Bring water or stock to a boil.","Add potatoes, carrot and onion.","Simmer until tender, then add salt and herbs."]},
+ {id:6,emoji:"🍎",ru:"Яблоки с корицей",en:"Cinnamon apples",time:15,cat:"dessert",
+  ing:["яблоки — 2 шт.","корица — ½ ч. л.","мёд или сахар — по вкусу","сливочное масло — 10 г"],
+  enIng:["apples — 2","cinnamon — ½ tsp","honey or sugar — to taste","butter — 10 g"],
+  steps:["Нарежьте яблоки дольками.","Растопите масло на сковороде.","Добавьте яблоки, корицу и немного мёда.","Готовьте 5–8 минут до мягкости."],
+  enSteps:["Slice the apples.","Melt butter in a pan.","Add apples, cinnamon and a little honey.","Cook for 5–8 minutes until soft."]}
+];
+let lang="ru",tab="home",query="",chosen=null;
+let favorites=JSON.parse(localStorage.getItem("vkuson-favs")||"[]");
+let shopping=JSON.parse(localStorage.getItem("vkuson-shopping")||"[]");
+const tr={
+ ru:{tag:"Ешь и радуйся!",hero:"Готовить — просто и вкусно!",heroText:"Выбирай рецепт, используй продукты из холодильника и радуй близких вкусными блюдами.",heroBtn:"Найти рецепт →",home:"🏠 Главная",recipes:"📖 Рецепты",pantry:"🥕 Из продуктов",favorites:"❤️ Избранное",shopping:"🛒 Покупки",all:"Наши рецепты",search:"🔎 Найти блюдо по названию...",time:"мин",open:"Готовить",fav:"♡ В избранное",unfav:"♥ В избранном",ingredients:"Ингредиенты",steps:"Приготовление",back:"← Назад к рецептам",pantryTitle:"Что есть в холодильнике?",pantryText:"Введи продукты через запятую — подберём подходящие рецепты.",pantryPlaceholder:"Например: картофель, курица, лук",find:"Подобрать блюда",matching:"Подходящие рецепты",noMatch:"Пока не нашли точного совпадения. Попробуй указать другие продукты.",favTitle:"Мои любимые рецепты",emptyFav:"Здесь будут рецепты, которые ты сохранишь.",shopTitle:"Список покупок",shopPlaceholder:"Добавить продукт...",add:"Добавить",remove:"Удалить",emptyShop:"Твой список пока пуст.",clear:"Очистить список",homeTitle:"Что приготовим сегодня?",homeText:"Популярные идеи для вкусного дня",footer:"Готовь с удовольствием!",random:"🎲 Удиви меня",surprise:"Твой рецепт на сегодня",addIngredients:"Добавить ингредиенты в покупки",portions:"Порций",scale:"Пересчёт порций пока ориентировочный.",emptySearch:"Ничего не найдено. Попробуй другое название."},
+ en:{tag:"Eat and enjoy!",hero:"Cooking can be easy and delicious!",heroText:"Choose a recipe, use what is in your fridge, and make something lovely for your family.",heroBtn:"Find a recipe →",home:"🏠 Home",recipes:"📖 Recipes",pantry:"🥕 My ingredients",favorites:"❤️ Favorites",shopping:"🛒 Shopping",all:"Our recipes",search:"🔎 Search recipes...",time:"min",open:"Cook",fav:"♡ Save",unfav:"♥ Saved",ingredients:"Ingredients",steps:"Instructions",back:"← Back to recipes",pantryTitle:"What's in your fridge?",pantryText:"Enter ingredients separated by commas to find matching recipes.",pantryPlaceholder:"For example: potatoes, chicken, onion",find:"Find recipes",matching:"Matching recipes",noMatch:"No exact match yet. Try entering different ingredients.",favTitle:"My favorite recipes",emptyFav:"Recipes you save will appear here.",shopTitle:"Shopping list",shopPlaceholder:"Add an item...",add:"Add",remove:"Remove",emptyShop:"Your list is empty for now.",clear:"Clear list",homeTitle:"What shall we cook today?",homeText:"Ideas for a delicious day",footer:"Cook with joy!",random:"🎲 Surprise me",surprise:"Your recipe for today",addIngredients:"Add ingredients to shopping list",portions:"Servings",scale:"Serving adjustment is an estimate.",emptySearch:"No recipes found. Try another search."}
+};
+function T(k){return tr[lang][k]||k}
+function title(r){return r[lang==="ru"?"ru":"en"]}
+function ing(r){return r[lang==="ru"?"ing":"enIng"]}
+function steps(r){return r[lang==="ru"?"steps":"enSteps"]}
+function save(){localStorage.setItem("vkuson-favs",JSON.stringify(favorites));localStorage.setItem("vkuson-shopping",JSON.stringify(shopping))}
+function toggleLang(){lang=lang==="ru"?"en":"ru";document.documentElement.lang=lang;render()}
+function showTab(t){tab=t;chosen=null;render();window.scrollTo({top:0,behavior:"smooth"})}
+function card(r){return `<article class="card"><div class="food">${r.emoji}</div><h3>${title(r)}</h3><span class="pill">⏱ ${r.time} ${T("time")}</span><div class="card-actions"><button class="primary" onclick="openRecipe(${r.id})">${T("open")}</button><button class="smallbtn" onclick="toggleFav(${r.id})">${favorites.includes(r.id)?T("unfav"):T("fav")}</button></div></article>`}
+function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];save();render()}
+function openRecipe(id){chosen=id;render()}
+function addIngredients(id){const r=recipes.find(x=>x.id===id);ing(r).forEach(x=>{if(!shopping.includes(x))shopping.push(x)});save();tab="shopping";chosen=null;render()}
+function recipeDetail(r){return `<div class="panel recipe-detail"><button class="secondary" onclick="chosen=null;render()">${T("back")}</button><div class="food" style="margin-top:14px">${r.emoji}</div><h3>${title(r)}</h3><p class="muted">⏱ ${r.time} ${T("time")}</p><div class="row"><strong>${T("portions")}:</strong><input id="portion" type="number" min="1" max="20" value="2" onchange="updatePortion()"></div><p class="muted">${T("scale")}</p><h3>${T("ingredients")}</h3><ul id="ingredientList">${ing(r).map(x=>`<li>${x}</li>`).join("")}</ul><button class="secondary" onclick="addIngredients(${r.id})">${T("addIngredients")}</button><h3>${T("steps")}</h3><ol>${steps(r).map(x=>`<li>${x}</li>`).join("")}</ol><button class="smallbtn" onclick="toggleFav(${r.id})">${favorites.includes(r.id)?T("unfav"):T("fav")}</button></div>`}
+function updatePortion(){const n=Math.max(1,Math.min(20,Number(document.getElementById("portion").value)||2));document.getElementById("portion").value=n}
+function render(){
+ document.getElementById("tagline").textContent=T("tag");
+ document.getElementById("heroTitle").textContent=T("hero");
+ document.getElementById("heroText").textContent=T("heroText");
+ document.getElementById("heroBtn").textContent=T("heroBtn");
+ document.getElementById("footerText").textContent=T("footer");
+ ["home","recipes","pantry","favorites","shopping"].forEach(k=>{document.getElementById("nav-"+k).textContent=T(k);document.getElementById("nav-"+k).classList.toggle("active",tab===k)});
+ const c=document.getElementById("content");
+ if(chosen!==null){c.innerHTML=recipeDetail(recipes.find(r=>r.id===chosen));return}
+ if(tab==="home"){c.innerHTML=`<h2>${T("homeTitle")}</h2><p class="muted">${T("homeText")}</p><div class="row" style="margin-bottom:16px"><button class="primary" onclick="surprise()">${T("random")}</button></div><div class="grid">${recipes.slice(0,3).map(card).join("")}</div>`}
+ if(tab==="recipes"){c.innerHTML=`<h2>${T("all")}</h2><input class="search" value="${query.replace(/"/g,"&quot;")}" oninput="query=this.value;renderRecipes()" placeholder="${T("search")}"><div id="recipeGrid" class="grid">${recipes.map(card).join("")}</div>`;renderRecipes()}
+ if(tab==="pantry"){c.innerHTML=`<div class="panel"><h2>${T("pantryTitle")}</h2><p>${T("pantryText")}</p><textarea id="pantryInput" placeholder="${T("pantryPlaceholder")}"></textarea><button class="primary" style="margin-top:12px" onclick="findByIngredients()">${T("find")}</button><div id="pantryResults" class="result"></div></div>`}
+ if(tab==="favorites"){const list=recipes.filter(r=>favorites.includes(r.id));c.innerHTML=`<h2>${T("favTitle")}</h2>${list.length?`<div class="grid">${list.map(card).join("")}</div>`:`<div class="empty">${T("emptyFav")}</div>`}`}
+ if(tab==="shopping"){c.innerHTML=`<h2>${T("shopTitle")}</h2><div class="panel"><form onsubmit="addShopping(event)"><div class="row"><input id="shopInput" style="flex:1;min-width:160px" placeholder="${T("shopPlaceholder")}"><button class="primary">${T("add")}</button></div></form><ul style="padding-left:22px">${shopping.map((x,i)=>`<li style="margin:12px 0">${escapeHtml(x)} <button class="smallbtn" onclick="removeShopping(${i})">${T("remove")}</button></li>`).join("")}</ul>${shopping.length?`<button class="secondary" onclick="shopping=[];save();render()">${T("clear")}</button>`:`<div class="muted">${T("emptyShop")}</div>`}</div>`}
+}
+function renderRecipes(){const el=document.getElementById("recipeGrid");if(!el)return;const list=recipes.filter(r=>title(r).toLowerCase().includes(query.toLowerCase()));el.innerHTML=list.length?list.map(card).join(""):`<div class="empty">${T("emptySearch")}</div>`}
+function findByIngredients(){const raw=document.getElementById("pantryInput").value.toLowerCase().split(",").map(x=>x.trim()).filter(Boolean);const matches=recipes.filter(r=>{const text=(r.ru+" "+r.en+" "+r.ing.join(" ")+" "+r.enIng.join(" ")).toLowerCase();return raw.length>0&&raw.some(x=>text.includes(x))});document.getElementById("pantryResults").innerHTML=`<h3>${T("matching")}</h3>${matches.length?`<div class="grid">${matches.map(card).join("")}</div>`:`<p class="muted">${T("noMatch")}</p>`}`}
+function addShopping(e){e.preventDefault();const input=document.getElementById("shopInput");const value=input.value.trim();if(value&&!shopping.includes(value)){shopping.push(value);save()}render()}
+function removeShopping(i){shopping.splice(i,1);save();render()}
+function surprise(){const r=recipes[Math.floor(Math.random()*recipes.length)];tab="home";chosen=r.id;render()}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+render();
+</script>
+</body>
+</html>

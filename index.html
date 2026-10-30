@@ -157,5 +157,16 @@ function surprise(){const r=recipes[Math.floor(Math.random()*recipes.length)];ta
 function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 render();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@gemspace/gem-bridge-sdk@1.1.0/index.global.js"></script>
+<script>
+  (async () => {
+    try {
+      await GemSpaceBridge.bridge.app.init();
+      await GemSpaceBridge.bridge.app.ready();
+    } catch (error) {
+      console.error("Gem Space Bridge SDK:", error);
+    }
+  })();
+</script>
 </body>
 </html>

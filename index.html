@@ -83,32 +83,32 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 
 <script>
 const recipes = [
- {id:1,emoji:"🍝",ru:"Макароны с фаршем",en:"Pasta with minced meat",time:25,cat:"dinner",
+ {id:1,emoji:"🍝",image:"pasta-minced-meat.jpg.png",ru:"Макароны с фаршем",en:"Pasta with minced meat",time:25,cat:"dinner",
   ing:["макароны — 200 г","фарш — 300 г","лук — 1 шт.","томатная паста — 1 ст. л.","вода — 300 мл","соль и перец"],
   enIng:["pasta — 200 g","minced meat — 300 g","onion — 1","tomato paste — 1 tbsp","water — 300 ml","salt and pepper"],
   steps:["Нарежьте лук и обжарьте до мягкости.","Добавьте фарш и готовьте, помешивая, 5–7 минут.","Добавьте томатную пасту, макароны и воду.","Посолите, накройте крышкой и тушите до готовности макарон."],
   enSteps:["Chop the onion and sauté until soft.","Add minced meat and cook for 5–7 minutes.","Add tomato paste, pasta and water.","Season, cover and simmer until the pasta is tender."]},
- {id:2,emoji:"🥞",ru:"Пышные оладьи",en:"Fluffy pancakes",time:20,cat:"breakfast",
+ {id:2,emoji:"🥞",image:"fluffy-pancakes.jpg.png",ru:"Пышные оладьи",en:"Fluffy pancakes",time:20,cat:"breakfast",
   ing:["кефир — 250 мл","яйцо — 1 шт.","мука — 180 г","сахар — 2 ст. л.","сода — ½ ч. л.","масло для жарки"],
   enIng:["kefir — 250 ml","egg — 1","flour — 180 g","sugar — 2 tbsp","baking soda — ½ tsp","oil for frying"],
   steps:["Смешайте кефир, яйцо и сахар.","Добавьте муку и соду, перемешайте до однородности.","Выкладывайте тесто ложкой на разогретую сковороду.","Жарьте с двух сторон до золотистого цвета."],
   enSteps:["Mix kefir, egg and sugar.","Add flour and baking soda; stir until smooth.","Spoon the batter into a heated pan.","Fry on both sides until golden."]},
- {id:3,emoji:"🥗",ru:"Овощной салат",en:"Fresh vegetable salad",time:10,cat:"salad",
+ {id:3,emoji:"🥗",image:"fresh-vegetable-salad.jpg.png",ru:"Овощной салат",en:"Fresh vegetable salad",time:10,cat:"salad",
   ing:["помидоры — 2 шт.","огурцы — 2 шт.","зелень — по вкусу","растительное масло — 1 ст. л.","соль — по вкусу"],
   enIng:["tomatoes — 2","cucumbers — 2","fresh herbs — to taste","vegetable oil — 1 tbsp","salt — to taste"],
   steps:["Вымойте овощи и зелень.","Нарежьте помидоры и огурцы.","Добавьте зелень, соль и масло.","Перемешайте и подавайте сразу."],
   enSteps:["Wash the vegetables and herbs.","Chop tomatoes and cucumbers.","Add herbs, salt and oil.","Toss and serve immediately."]},
- {id:4,emoji:"🍗",ru:"Курица с картофелем",en:"Chicken with potatoes",time:45,cat:"dinner",
+ {id:4,emoji:"🍗",image:"chicken-potatoes.jpg.png",ru:"Курица с картофелем",en:"Chicken with potatoes",time:45,cat:"dinner",
   ing:["куриные бёдра — 4 шт.","картофель — 500 г","чеснок — 2 зубчика","масло — 2 ст. л.","паприка, соль, перец"],
   enIng:["chicken thighs — 4","potatoes — 500 g","garlic — 2 cloves","oil — 2 tbsp","paprika, salt, pepper"],
   steps:["Разогрейте духовку до 200 °C.","Нарежьте картофель и смешайте с маслом и специями.","Выложите курицу и картофель в форму.","Запекайте около 40–45 минут до полной готовности курицы."],
   enSteps:["Preheat the oven to 200°C / 400°F.","Cut potatoes and toss with oil and seasoning.","Place chicken and potatoes in a baking dish.","Bake for 40–45 minutes, until the chicken is fully cooked."]},
- {id:5,emoji:"🍲",ru:"Суп с овощами",en:"Vegetable soup",time:35,cat:"lunch",
+ {id:5,emoji:"🍲",image:"vegetable-soup.jpg.png",ru:"Суп с овощами",en:"Vegetable soup",time:35,cat:"lunch",
   ing:["картофель — 3 шт.","морковь — 1 шт.","лук — 1 шт.","вода или бульон — 1,5 л","соль и зелень"],
   enIng:["potatoes — 3","carrot — 1","onion — 1","water or stock — 1.5 L","salt and herbs"],
   steps:["Нарежьте картофель и овощи.","Доведите воду или бульон до кипения.","Добавьте картофель, морковь и лук.","Варите до мягкости овощей, добавьте соль и зелень."],
   enSteps:["Chop the potatoes and vegetables.","Bring water or stock to a boil.","Add potatoes, carrot and onion.","Simmer until tender, then add salt and herbs."]},
- {id:6,emoji:"🍎",ru:"Яблоки с корицей",en:"Cinnamon apples",time:15,cat:"dessert",
+ {id:6,emoji:"🍎",image:"baked-apples-cinnamon.jpg.png",ru:"Яблоки с корицей",en:"Cinnamon apples",time:15,cat:"dessert",
   ing:["яблоки — 2 шт.","корица — ½ ч. л.","мёд или сахар — по вкусу","сливочное масло — 10 г"],
   enIng:["apples — 2","cinnamon — ½ tsp","honey or sugar — to taste","butter — 10 g"],
   steps:["Нарежьте яблоки дольками.","Растопите масло на сковороде.","Добавьте яблоки, корицу и немного мёда.","Готовьте 5–8 минут до мягкости."],
@@ -128,11 +128,11 @@ function steps(r){return r[lang==="ru"?"steps":"enSteps"]}
 function save(){localStorage.setItem("vkuson-favs",JSON.stringify(favorites));localStorage.setItem("vkuson-shopping",JSON.stringify(shopping))}
 function toggleLang(){lang=lang==="ru"?"en":"ru";document.documentElement.lang=lang;render()}
 function showTab(t){tab=t;chosen=null;render();window.scrollTo({top:0,behavior:"smooth"})}
-function card(r){return `<article class="card"><div class="food">${r.emoji}</div><h3>${title(r)}</h3><span class="pill">⏱ ${r.time} ${T("time")}</span><div class="card-actions"><button class="primary" onclick="openRecipe(${r.id})">${T("open")}</button><button class="smallbtn" onclick="toggleFav(${r.id})">${favorites.includes(r.id)?T("unfav"):T("fav")}</button></div></article>`}
+function card(r){return `<article class="card"><div class="food"><img src="${r.image}" alt="${title(r)}"></div><h3>${title(r)}</h3><span class="pill">⏱ ${r.time} ${T("time")}</span><div class="card-actions"><button class="primary" onclick="openRecipe(${r.id})">${T("open")}</button><button class="smallbtn" onclick="toggleFav(${r.id})">${favorites.includes(r.id)?T("unfav"):T("fav")}</button></div></article>`}
 function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];save();render()}
 function openRecipe(id){chosen=id;render()}
 function addIngredients(id){const r=recipes.find(x=>x.id===id);ing(r).forEach(x=>{if(!shopping.includes(x))shopping.push(x)});save();tab="shopping";chosen=null;render()}
-function recipeDetail(r){return `<div class="panel recipe-detail"><button class="secondary" onclick="chosen=null;render()">${T("back")}</button><div class="food" style="margin-top:14px">${r.emoji}</div><h3>${title(r)}</h3><p class="muted">⏱ ${r.time} ${T("time")}</p><div class="row"><strong>${T("portions")}:</strong><input id="portion" type="number" min="1" max="20" value="2" onchange="updatePortion()"></div><p class="muted">${T("scale")}</p><h3>${T("ingredients")}</h3><ul id="ingredientList">${ing(r).map(x=>`<li>${x}</li>`).join("")}</ul><button class="secondary" onclick="addIngredients(${r.id})">${T("addIngredients")}</button><h3>${T("steps")}</h3><ol>${steps(r).map(x=>`<li>${x}</li>`).join("")}</ol><button class="smallbtn" onclick="toggleFav(${r.id})">${favorites.includes(r.id)?T("unfav"):T("fav")}</button></div>`}
+function recipeDetail(r){return `<div class="panel recipe-detail"><button class="secondary" onclick="chosen=null;render()">${T("back")}</button><div class="food" style="margin-top:14px"><img src="${r.image}" alt="${title(r)}"></div><h3>${title(r)}</h3><p class="muted">⏱ ${r.time} ${T("time")}</p><div class="row"><strong>${T("portions")}:</strong><input id="portion" type="number" min="1" max="20" value="2" onchange="updatePortion()"></div><p class="muted">${T("scale")}</p><h3>${T("ingredients")}</h3><ul id="ingredientList">${ing(r).map(x=>`<li>${x}</li>`).join("")}</ul><button class="secondary" onclick="addIngredients(${r.id})">${T("addIngredients")}</button><h3>${T("steps")}</h3><ol>${steps(r).map(x=>`<li>${x}</li>`).join("")}</ol><button class="smallbtn" onclick="toggleFav(${r.id})">${favorites.includes(r.id)?T("unfav"):T("fav")}</button></div>`}
 function updatePortion(){const n=Math.max(1,Math.min(20,Number(document.getElementById("portion").value)||2));document.getElementById("portion").value=n}
 function render(){
  document.getElementById("tagline").textContent=T("tag");
